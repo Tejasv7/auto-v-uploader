@@ -1,0 +1,44 @@
+[
+  {
+    "name": "Laofanqie",
+    "chinese_name": "老番茄",
+    "platform": "bilibili",
+    "uid": "546195",
+    "enabled": true
+  },
+  {
+    "name": "Da Sima",
+    "chinese_name": "芜湖大司马",
+    "platform": "bilibili",
+    "uid": "677865752",
+    "enabled": true
+  },
+  {
+    "name": "Zhang Daxian",
+    "chinese_name": "张大仙",
+    "platform": "bilibili",
+    "uid": "481053323",
+    "enabled": true
+  },
+  {
+    "name": "Menglei",
+    "chinese_name": "梦泪",
+    "platform": "bilibili",
+    "uid": "108569350",
+    "enabled": true
+  },
+  {
+    "name": "Xiaoyao Sanren",
+    "chinese_name": "逍遥散人",
+    "platform": "bilibili",
+    "uid": "168598",
+    "enabled": true
+  },
+  {
+    "name": "Xiao Chao Yuan Zhang",
+    "chinese_name": "小潮院长",
+    "platform": "bilibili",
+    "uid": "5970160",
+    "enabled": true
+  }
+]
