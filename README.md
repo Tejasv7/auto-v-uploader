@@ -1,6 +1,6 @@
 # China Gaming Auto Publisher (Bilibili -> Instagram Reels)
 
-A serverless automated pipeline running on **GitHub Actions** that monitors verified Chinese gaming creators on **Bilibili**, converts their clips into 9:16 vertical Instagram Reels with background blur, generates viral English AI captions using **Gemini**, and publishes them to **Instagram**.
+A serverless automated pipeline running on **GitHub Actions** that monitors verified Chinese gaming creators on **Bilibili**, converts their clips into 9:16 vertical Instagram Reels with background blur, generates viral Hinglish AI captions using **Gemini**, and publishes them to **Instagram**.
 
 ---
 
@@ -11,9 +11,8 @@ A serverless automated pipeline running on **GitHub Actions** that monitors veri
 │   └── workflows/
 │       └── publisher.yml      # GitHub Actions automation runner (runs every 3 hours)
 ├── bilibili_service.py        # Official WBI-signed Bilibili API client
-├── ai_caption.py              # Gemini AI English caption & hashtag generator
+├── ai_caption.py              # Gemini AI Hinglish caption & hashtag generator
 ├── video_processor.py         # FFmpeg vertical 9:16 converter with background blur & credits
-├── github_storage.py          # Zero-config public video hosting using GitHub Releases
 ├── instagram_service.py       # Official Meta Instagram Graph API Reels publisher
 ├── main.py                    # Master orchestrator script
 ├── creators.json              # List of monitored Bilibili gaming creators
@@ -28,9 +27,12 @@ A serverless automated pipeline running on **GitHub Actions** that monitors veri
 
 ### 1. Push code to your GitHub Repository
 ```bash
+git init
 git add .
-git commit -m "chore: update config"
-git push origin main
+git commit -m "feat: setup Bilibili auto publisher workflow"
+git branch -M main
+git remote add origin <YOUR_GITHUB_REPO_URL>
+git push -u origin main
 ```
 
 ### 2. Configure GitHub Secrets
@@ -38,11 +40,11 @@ Go to your GitHub Repository -> **Settings** -> **Secrets and variables** -> **A
 
 | Secret Name | Description |
 | :--- | :--- |
-| `GEMINI_API_KEY` | Your Google Gemini API Key for viral English captions |
+| `GEMINI_API_KEY` | Your Google Gemini API Key for viral Hinglish captions |
 | `INSTAGRAM_ACCOUNT_ID` | Your Instagram Professional/Business Account ID |
 | `INSTAGRAM_ACCESS_TOKEN`| Long-lived Instagram Graph API Access Token |
 
-*(No external storage or `PUBLIC_MEDIA_BASE_URL` needed — GitHub Releases handle the hosting automatically!)*
+*(No external cloud storage or `PUBLIC_MEDIA_BASE_URL` needed — GitHub Releases handle media hosting automatically!)*
 
 ### 3. Automatic Execution
 * The workflow will run **automatically every 3 hours** via GitHub Actions cron.
