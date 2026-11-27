@@ -1,29 +1,29 @@
 import os
 import requests
 
-def generate_english_caption(video_title: str, creator_name: str) -> str:
+def generate_hinglish_caption(video_title: str, creator_name: str) -> str:
     """
-    Generates high-engagement viral English gaming caption + 10 trending hashtags using Gemini API.
-    Falls back to a well-crafted English gaming template if GEMINI_API_KEY is not set or fails.
+    Generates high-engagement Hinglish gaming caption + 10 trending hashtags using Gemini API.
+    Falls back to a well-crafted template if GEMINI_API_KEY is not set.
     """
     api_key = os.getenv("GEMINI_API_KEY")
 
     prompt = f"""
-Act as a viral global gaming content creator and social media strategist.
-Create an engaging, viral Instagram Reels caption in clean, energetic English for a gaming clip.
+Act as a viral Indian gaming content creator and social media manager.
+Create an engaging, viral Instagram Reels caption in natural Hinglish for a gaming video.
 
 Video Details:
 - Original Title: {video_title}
 - Original Creator: {creator_name}
 
 Requirements:
-1. High-energy hook line in English (e.g. "Wait for this insane clutch! 😱🔥", "Have you ever seen a play like this?!")
-2. Brief engaging context (1-2 short sentences highlighting pro reflexes or gameplay)
-3. Call to Action: "Tag your duo & follow for daily pro gaming highlights!"
+1. Hook line in Hinglish (e.g. "Bhai ye move dekho! 😱🔥", "Aisa gameplay pehle kabhi nahi dekha!")
+2. Brief engaging context (1-2 short sentences)
+3. Call to Action: "Share with your gaming squad & follow for daily pro gaming clips!"
 4. Mandatory Creator Credit line: "Original Content Credit: {creator_name} (Bilibili)"
-5. 10 trending global gaming hashtags: e.g. #gaming #reels #gamingcommunity #gamer #esports #proplayer #gaminghighlights #epicclips #gameplay #pcgaming
+5. 10 trending gaming hashtags: e.g. #gaming #reels #gamingmoments #hindi #hinglishgaming #proplayer #epicmoments
 
-Return ONLY the final ready-to-post caption text without any introductory explanation.
+Return ONLY the final ready-to-post caption text.
 """
 
     if api_key:
@@ -41,16 +41,16 @@ Return ONLY the final ready-to-post caption text without any introductory explan
             caption = data["candidates"][0]["content"]["parts"][0]["text"].strip()
             return caption
         except Exception as e:
-            print(f"[!] Gemini AI generation failed ({e}), using default English template")
+            print(f"[!] Gemini AI generation failed ({e}), using default template")
 
-    # High-converting fallback template in English
-    fallback_caption = f"""Wait for this insane play by {creator_name}! 😱🔥
+    # Smart fallback template if API is absent or fails
+    fallback_caption = f"""Bhai! {creator_name} ka ye gaming moment dekho! 😱🔥
 
-Have you ever seen reflexes and timing like this? Rate this play 1-10 in the comments! 👇
+Aisa reflex aur clutch gameplay pehle kabhi dekha hai kya? Tag your squad! 👇
 
-Original Content Credit: {creator_name} (Bilibili)
-Follow for daily insane gaming clips and highlights! 🚀
+Original Creator Credit: {creator_name} (Bilibili)
+Follow for more insane gaming moments! 🚀
 
-#gaming #gamingreels #gamingcommunity #esports #proplayer #epicmoments #gamerlife #bilibiligaming #viralgaming #gamingclips"""
+#gaming #gamingreels #gamingcommunity #hinglishgaming #reelsindia #esports #epicmoments #gamerlife #bilibiligaming #viralgaming"""
     
     return fallback_caption
