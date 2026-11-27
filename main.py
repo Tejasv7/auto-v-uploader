@@ -6,6 +6,7 @@ from bilibili_service import fetch_latest_videos, get_video_stream_url
 from ai_caption import generate_hinglish_caption
 from video_processor import download_bilibili_video, convert_to_vertical_9_16
 from instagram_service import InstagramPublisher
+from github_storage import upload_to_github_release
 
 CREATORS_FILE = "creators.json"
 POSTED_HISTORY_FILE = "posted_history.json"
@@ -96,11 +97,12 @@ def main():
             else:
                 final_video_path = vertical_video_path
 
-            # Step 4: Publish to Instagram (if configured)
+            # Step 4: Publish to Instagram
             if ig_publisher.is_configured():
-                public_base = os.getenv("PUBLIC_MEDIA_BASE_URL", "")
-                if public_base:
-                    public_video_url = f"{public_base.rstrip('/')}/{os.path.basename(final_video_path)}"
+                # Get public download URL using GitHub Releases
+                public_video_url = upload_to_github_release(final_video_path)
+                
+                if public_video_url:
                     try:
                         print(f"  [IG] Publishing to Instagram via Meta Graph API...")
                         post_id = ig_publisher.post(public_video_url, caption)
@@ -108,7 +110,7 @@ def main():
                     except Exception as e:
                         print(f"  [!] Instagram publishing failed: {e}")
                 else:
-                    print("  [i] PUBLIC_MEDIA_BASE_URL not set. Skipping live Instagram upload.")
+                    print("  [!] Could not generate public URL. Skipping Instagram upload.")
             else:
                 print("  [i] Instagram credentials not configured. Video saved locally in processed_media/.")
 
@@ -116,7 +118,7 @@ def main():
             posted_history.add(bvid)
             save_json(POSTED_HISTORY_FILE, list(posted_history))
             new_posts_count += 1
-            break  # Process only 1 new video per creator per workflow run for safe pacing
+            break  # Process only 1 new video per creator per workflow run
 
     print(f"\n[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] Finished run. Total new videos processed: {new_posts_count}")
 
