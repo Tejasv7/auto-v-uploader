@@ -3,7 +3,7 @@ import json
 import time
 from datetime import datetime
 from bilibili_service import fetch_latest_videos, get_video_stream_url
-from ai_caption import generate_hinglish_caption
+from ai_caption import generate_english_caption
 from video_processor import download_bilibili_video, convert_to_vertical_9_16
 from instagram_service import InstagramPublisher
 from github_storage import upload_to_github_release
@@ -66,9 +66,9 @@ def main():
             print(f"      Title: {title}")
             print(f"      URL: {video['url']}")
 
-            # Step 1: AI Hinglish Caption Generation
-            print("  [1/4] Generating viral Hinglish caption with AI...")
-            caption = generate_hinglish_caption(title, f"{name} ({creator.get('chinese_name', '')})")
+            # Step 1: AI English Caption Generation
+            print("  [1/4] Generating viral English caption with AI...")
+            caption = generate_english_caption(title, f"{name} ({creator.get('chinese_name', '')})")
             print("      Generated Caption:")
             print("      " + caption.replace('\n', '\n      '))
 
